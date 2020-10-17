@@ -1,0 +1,2 @@
+# nouveau
+A next generation art and simulation programming language. My hope is that people will use Nouveau and share it with other people, or embed it within their projects and make other people aware of it, or maybe even fork or contribute to Nouveau. I believe that knowledge is power, and knowledge should be free. I've chosen the MIT license for this language as a symbol of it's dedication to be used as a paintbrush or pencil would.
