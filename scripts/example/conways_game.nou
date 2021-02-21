@@ -1,35 +1,34 @@
+#!D:/utilities/nou
+#!/usr/bin/nou
 
+bind width, 100;
+bind height, 100;
+bind timesteps, 10;
+bind board, %[(width*height) 0];
+bind cell, \[[x y] (width * y + x)];
+bind alive, \[[x y] =[value[cell[x y]] 1]
+bind death, \[[x y] ^[ cell[x y] 0];
+bind birth, \[[x y] ^[ cell[x y] 1];
 
-
-[print
-  ["given the following matrix:"
-    [0 1 2 3 4 5]
-    [1 0 1 2 3 4]
-    [0 1 0 1 2 3]
-    [1 0 1 0 1 2]
-    [0 1 0 1 0 1]
-  "compute asdf jkl semi colon"]
+bind [
+  cell-neighborhood \[[x y] [
+    bind directions, list [[-1 -1] [0 -1] [1 -1] [-1 0] [1 0] [-1 1] [0 1] [1 1]];
+    reduce[+ map [directions alive]]
+  ]]
 ]
 
-[color-palette [
-    [brown-deep [hsv [13 170 26]]]
-    [brown-hair [hsv [16 240 59]]]
-    [brown-dark [hsv [15 132 42]]]
-    [brown-hazel [hsv [15 240 33]]]
-    [brown-oak [hsv [16 135 52]]]
-    [skin-face [hsv [22 152 152]]]
-    [skin-body [hsv [19 119 141]]]
-    [skin-cheek [hsv [18 151 107]]]
-    [tan-light [hsv [16 141 144]]]
-    [tan-medium [hsv [17 124 109]]]
-    [tan-crimson [hsv [17 171 95]]]
-    [tan-dark [hsv [17 163 96]]]
-    [blue-light [hsv [131 211 118]]]
-    [blue-dark [hsv [140 240 81]]]
-    [blue-water [hsv [140 98 133]]]
-    [gray-dark [hsv [160 0 104]]]
-    [gray-light [hsv [158 8 196]]]
-    [green-light [hsv [82 32 115]]]
-    [green-dark [hsv [84 28 88]]]
+bind [ rules list [
+    underpopulation [( <2 ) 0]
+    generation [( =2|3 ) 1]
+    overpopulation [( >3 ) 0]
+    reproduction [( <2 ) 0]
   ]
 ]
+
+bind get-rule, each [
+  rules [
+
+  ]
+];
+
+each [ rules check-cell-life ]

@@ -1,0 +1,21 @@
+Pi Calculus
+	0	;; None (no free names)
+	a!x.P	;; a; x; all free names of p
+	a?x.P	;; a; free names of P except for x
+	P|Q	;; all free names of P and Q
+	(~x).P	;; Free names of P except for x
+	*P	;; All free names of P
+
+	alpha-conversion:
+		P ~= Q if Q can be obtained from P by renaming one or more bound names in P.
+	Axioms for parallel composition:
+		P|Q ~= Q|P
+		(P|Q)|R ~= P|(Q|R)
+		P|0 ~= P
+
+	Axiom for replication:
+		*P ~= P|*P
+	
+	Axiom relating restriction and parallel: ("scope extension" axxiom)
+		(~x)(P|Q) ~= (~x)P|Q if x is not a free name of Q
+	x!z.P | x?y.Q -> P|Q[z/y]

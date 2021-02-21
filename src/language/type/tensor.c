@@ -1,41 +1,41 @@
-#include "DynamicMatrix.h"
+#include "Tensor.h"
 
-/* DynamicMatrix specializations for int, double and float */
+/* Tensor specializations for int, double and float */
 
-void * DynamicMatrix_sum_int(void * lhs, void * rhs) {
+void * Tensor_sum_int(void * lhs, void * rhs) {
     return (void *)(*(int *)lhs + *(int *)rhs);
 }
 
-void * DynamicMatrix_product_int(void * lhs, void * rhs) {
+void * Tensor_product_int(void * lhs, void * rhs) {
     return (void *)(*(int *)lhs * *(int *)rhs);
 }
 
-void * DynamicMatrix_sum_float(void * lhs, void * rhs) {
+void * Tensor_sum_float(void * lhs, void * rhs) {
     return (void *)(*(float *)lhs + *(float *)rhs);
 }
 
-void * DynamicMatrix_product_float(void * lhs, void * rhs) {
+void * Tensor_product_float(void * lhs, void * rhs) {
     return (void *)(*(float *)lhs * *(float *)rhs);
 }
 
-void * DynamicMatrix_sum_double(void * lhs, void * rhs) {
+void * Tensor_sum_double(void * lhs, void * rhs) {
     return (void *)(*(double *)lhs + *(double *)rhs);
 }
 
-void * DynamicMatrix_product_double(void * lhs, void * rhs) {
+void * Tensor_product_double(void * lhs, void * rhs) {
     return (void *)(*(double *)lhs * *(double *)rhs);
 }
 
-/* DynamicMatrix constructor and destructor functions */
+/* Tensor constructor and destructor functions */
 
-struct DynamicMatrix * DynamicMatrix_construct() {
-    struct DynamicMatrix * matrix;
-    matrix = malloc(sizeof(struct DynamicMatrix));
+struct Tensor * Tensor_construct() {
+    struct Tensor * matrix;
+    matrix = malloc(sizeof(struct Tensor));
     if(NULL == matrix) return NULL;
     return matrix;
 }
 
-struct DynamicMatrix * DynamicMatrix_initialize(struct DynamicMatrix * matrix,
+struct Tensor * Tensor_initialize(struct Tensor * matrix,
                                   void * data,
                                   size_t data_size,
                                   size_t scalar_size,
@@ -51,17 +51,17 @@ struct DynamicMatrix * DynamicMatrix_initialize(struct DynamicMatrix * matrix,
     return matrix;
 }
 
-struct DynamicMatrix * DynamicMatrix_create(size_t data_size,
+struct Tensor * Tensor_create(size_t data_size,
                               size_t scalar_size,
                               size_t columns,
                               size_t rows,
-                              DynamicMatrixOperation scalar_product,
-                              DynamicMatrixOperation scalar_sum)
+                              TensorOperation scalar_product,
+                              TensorOperation scalar_sum)
 {
-  struct DynamicMatrix * matrix;
-  matrix = DynamicMatrix_construct();
+  struct Tensor * matrix;
+  matrix = Tensor_construct();
   if(NULL == matrix) return NULL;
-  return DynamicMatrix_initialize(matrix,
+  return Tensor_initialize(matrix,
                            data,
                            data_size,
                            scalar_size,
@@ -69,15 +69,15 @@ struct DynamicMatrix * DynamicMatrix_create(size_t data_size,
                            rows);
 }
 
-struct DynamicMatrix * DynamicMatrix_new(void * data, size_t size) {
-  struct DynamicMatrix * list;
-  list = DynamicMatrix_create(data, size, NULL);
+struct Tensor * Tensor_new(void * data, size_t size) {
+  struct Tensor * list;
+  list = Tensor_create(data, size, NULL);
   if(NULL == list) return NULL;
   if(NULL != data) {
     list->data = calloc(1, size);
     list->size = size;
     if(NULL == list->data) {
-      DynamicMatrix_destroy(list);
+      Tensor_destroy(list);
       return NULL;
     } else {
       if(NULL != data)
@@ -88,15 +88,15 @@ struct DynamicMatrix * DynamicMatrix_new(void * data, size_t size) {
   return list;
 }
 
-bool DynamicMatrix_selfAllocated(struct DynamicMatrix * list) {
+bool Tensor_selfAllocated(struct Tensor * list) {
   if(NULL != list)
     return (NULL != list->data && list->allocated == true);
   return false;
 }
 
-struct DynamicMatrix * DynamicMatrix_destroy(struct DynamicMatrix * node) {
+struct Tensor * Tensor_destroy(struct Tensor * node) {
   if(NULL != node) {
-    if(DynamicMatrix_selfAllocated(node)) free(node->data);
+    if(Tensor_selfAllocated(node)) free(node->data);
     node->data = NULL;
     free(node);
     node = NULL;
@@ -105,7 +105,7 @@ struct DynamicMatrix * DynamicMatrix_destroy(struct DynamicMatrix * node) {
 }
 
 
-// struct DynamicArray * DynamicMatrix_new(int value_size, ...) {
+// struct DynamicArray * Tensor_new(int value_size, ...) {
 //   va_list args;
 //   va_start(args, value_size);
 //
@@ -113,7 +113,7 @@ struct DynamicMatrix * DynamicMatrix_destroy(struct DynamicMatrix * node) {
 //   return DynamicArray_new(size*dimensions, value_size);
 // }
 //
-// void * DynamicMatrix_at(struct DynamicArray * array, ...) {
+// void * Tensor_at(struct DynamicArray * array, ...) {
 //   va_list args;
 //   size_t offset = 1;
 //   va_start(args, array);
@@ -123,8 +123,8 @@ struct DynamicMatrix * DynamicMatrix_destroy(struct DynamicMatrix * node) {
 //   return DynamicArray_at(array, offset);
 // }
 
-// int DynamicMatrix_set( struct DynamicArray * array, void * value, ... ) {
-//   void * data = DynamicMatrix_At(array, ...);
+// int Tensor_set( struct DynamicArray * array, void * value, ... ) {
+//   void * data = Tensor_At(array, ...);
 //   data = value;
 //   return 0;
 // }

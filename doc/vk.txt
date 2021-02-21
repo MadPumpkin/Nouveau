@@ -1,0 +1,26 @@
+swap-chain
+
+image
+imageview
+surfaces (native window draw space)
+
+Pipeline
+CommandBuffer
+Command
+command queue
+Command Buffer
+Command pool
+
+Render pass (chunk of work)
+Color, Depth, Stencil, Input and Resolve (Attachments)
+
+barriers, fences, semaphores and events
+
+
+
+-vertex input
+-vertex shader
+-rasterization
+-fragment shader
+-colour blending
+-frame buffer output

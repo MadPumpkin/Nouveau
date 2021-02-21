@@ -1,0 +1,18 @@
+#! /bin/nouveau
+(
+  (*echo[string].std!string)
+  (*incr(a,x).a ! `x+1`)
+  (*decr(a,x).a ! `x-1`)
+)
+
+vector = [1 2 3 4]
+echo vector
+inc-echo = (echo result) |
+  ((incr a vector)
+  | (~a)(incr?[a, vector])
+  | a(result))
+
+
+
+
+(*load_obj_file())

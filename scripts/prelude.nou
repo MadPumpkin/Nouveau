@@ -1,8 +1,29 @@
-[export [
-  math [
-    [PI 3.1415926535897932384626433832795028841971]
-    [TAU `(PI 2)`]
-    []
-  ];
+#!D:/utilities/nou
+#!/usr/bin/nou
+~[bind ~]
+~[]
+bind let, ~;
+bind block, %;
+bind lambda, \;
+bind 
+bind define, \[[symbol term] bind [symbol term]];
+bind 
+
+define defmacro [list \[[body] [
   
-]]
+]]]
+
+
+define each [x y] [
+  
+]
+
+
+define write-file [filename mode data] [
+
+]
+
+$[filename]
+open $[filename] => #[filename stream] -> ~[stream]
+open [filename mode] => #[filename stream]
+

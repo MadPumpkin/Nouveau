@@ -1,0 +1,2 @@
+;; This code says "Create literal 'hello world' string and write, then continue as `std`
+[std [hello world] !]

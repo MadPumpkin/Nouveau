@@ -1,0 +1,21 @@
+
+bind [value 15]
+  hero [
+    stat [ stat_name
+      v(^value) [type listener [on_change]]
+  ]
+
+
+bind [value 15]
+  hero stat stat_name // value type / listener on_change;
+
+
+bind [value 15] {
+  on_change
+  stat_name
+  type
+  listener  on_change
+  v(^value) type
+  stat      stat_name
+  hero      stat
+}
